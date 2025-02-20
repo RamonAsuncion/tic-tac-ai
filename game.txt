@@ -1,0 +1,26 @@
+tic-tac-toe ai
+
+3x3 grid game where there is "X" and "O" in the grid.
+
+goal to get three of the same symbol in a row, column, or diagonal.
+
+use a minimax algorithm.
+
+the game tree represents all the possible moves from the current game state.
+
+root node: The current board state.
+
+child nodes: The possible game states after each move.
+
+the AI will simulate every possible move (up to the end of the game) and calculate the outcome (win, loss, or draw). It assigns a score to each end state:
+
+Win for the AI: Score = +1.
+Win for the player: Score = -1.
+Draw: Score = 0.
+
+The minimax algorithm will then propagate these scores back up the tree. The AI (maximizing player) will choose the move that maximizes its score, while the player (minimizing player) will try to minimize the AI’s score.
+
+The game can end in several ways:
+
+Win: Either the AI or the player wins by aligning three symbols in a row, column, or diagonal.
+Draw: The board is full, but no one has won.
