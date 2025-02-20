@@ -23,13 +23,13 @@ void board::display() const {
 //      |     |
 //3  -  |  -  |  -
 //      |     |
-  std::cout << "\n   a     b     c\n";
+  std::cout << "\n    a     b     c\n";
   for (int i = 0; i < SIZE; ++i) {
-    std::cout << "      |     |     \n";
-    std::cout << (i + 1) << "  " << grid[i][0] << "  |  " << grid[i][1] << "  |  " << grid[i][2] << "\n";
+    std::cout << "       |     |      \n";
+    std::cout << (i + 1) << "   " << grid[i][0] << "  |  " << grid[i][1] << "  |  " << grid[i][2] << "\n";
     if (i != SIZE - 1) {
-      std::cout << "  ____|_____|____\n";
+      std::cout << "  _____|_____|_____\n";
     }
   }
-  std::cout << "      |     |     \n\n";
+  std::cout << "       |     |     \n\n";
 }
