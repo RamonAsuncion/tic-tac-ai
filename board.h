@@ -3,10 +3,12 @@
 
 #include <vector>
 
-class board {
+class board
+{
 public:
   board();
   void init();
+  void make_move(int col, int row, char symbol);
   void display() const;
 private:
   static const int SIZE = 3;
