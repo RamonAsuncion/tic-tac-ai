@@ -9,6 +9,7 @@ public:
   board();
   void init();
   void make_move(int col, int row, char symbol);
+  bool is_empty(int col, int row);
   void display() const;
 private:
   static const int SIZE = 3;
