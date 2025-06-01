@@ -19,7 +19,7 @@ void board::make_move(int col, int row, char symbol)
 
 bool board::is_empty(int col, int row)
 {
-  return grid[col][row] == ' ' ? true : false;
+  return grid[col][row] == '-' ? true : false;
 }
 
 void board::display() const
