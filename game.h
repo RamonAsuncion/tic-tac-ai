@@ -23,7 +23,7 @@ private:
   ai ai_player;
   bool game_over;
   void switch_player();
-  // void player_move();
+  void player_move();
   void ai_move();
   bool process_move(const std::string& move);
   void show_menu();
