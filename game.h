@@ -5,6 +5,12 @@
 #include "player.h"
 #include "ai.h"
 
+enum class game_mode
+{
+  PvP,
+  PvAI
+};
+
 class game
 {
 public:
@@ -17,9 +23,11 @@ private:
   ai ai_player;
   bool game_over;
   void switch_player();
-  void player_move();
+  // void player_move();
   void ai_move();
   bool process_move(const std::string& move);
+  void show_menu();
+  game_mode mode;
 };
 
 #endif /* _GAME_H_ */
