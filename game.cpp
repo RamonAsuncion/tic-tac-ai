@@ -1,10 +1,12 @@
 #include <string>
 #include <iostream>
+#include <cstdlib>
 
 #include "game.h"
 
 game::game()
 {
+  srand(time(0)); // random AI start position
   game_over = false;
   current_player = 'X';
 }
@@ -23,7 +25,7 @@ void game::show_menu()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (choice == 1) {
-      std::cout << "Start: " << current_player << ", use command \"Xa1\"!\n";
+      std::cout << "Start: " << current_player << "starts, use command \"Xa1\"!\n";
       mode = game_mode::PvP;
     } else if (choice == 2) {
       mode = game_mode::PvAI;
@@ -69,16 +71,30 @@ void game::player_move()
 
     valid_move = process_move(move);
 
-    if (valid_move)
-      switch_player();
-    else
+    if (valid_move) {
+      check_game_over();
+      if (!game_over)
+        switch_player();
+    }
+    else {
       std::cout << "Invalid move!";
+    }
   }
 }
 
-// ai.cpp will be used to make a easy / medium / hard difficulty one or maybe one that is just hard
 void game::ai_move() {
-  // todo: random empty spot (create is_empty function)
+  std::cout << "Dumb AI:\n";
+  bool valid_move = false;
+
+  while (!valid_move) {
+    int rand_col = rand() % 3;
+    int rand_row = rand() % 3;
+    valid_move = game_board.make_move(rand_col, rand_row, current_player);
+  }
+
+  check_game_over();
+  if (!game_over)
+    switch_player();
 }
 
 bool game::process_move(const std::string& move)
@@ -97,11 +113,18 @@ bool game::process_move(const std::string& move)
   int row_idx = row - '1';
   int col_idx = col - 'a';
 
-  if (game_board.is_empty(col_idx, row_idx)) {
-    game_board.make_move(col_idx, row_idx, player);
-    return true;
-  }
+  return game_board.make_move(col_idx, row_idx, player);
+}
 
-  return false;
+void game::check_game_over()
+{
+  if (game_board.check_winner(current_player)) {
+    game_board.display();
+    std::cout << "Player " << current_player << " wins!\n";
+    game_over = true;
+  } else if (game_board.is_draw()) { // last move could be a winner
+    std::cout << "It's a draw!\n";
+    game_over = true;
+  }
 }
 
