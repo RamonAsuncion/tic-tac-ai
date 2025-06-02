@@ -25,7 +25,7 @@ void game::show_menu()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (choice == 1) {
-      std::cout << "Start: " << current_player << "starts, use command \"Xa1\"!\n";
+      std::cout << "Start: " << current_player << ", use command \"Xa1\"!\n";
       mode = game_mode::PvP;
     } else if (choice == 2) {
       mode = game_mode::PvAI;
