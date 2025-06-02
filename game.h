@@ -16,7 +16,10 @@ class game
 public:
   game();
   void run();
+  bool is_draw() const;
+  bool check_winner() const;
 private:
+  game_mode mode;
   board game_board;
   char current_player;
   player human_player;
@@ -27,7 +30,7 @@ private:
   void ai_move();
   bool process_move(const std::string& move);
   void show_menu();
-  game_mode mode;
+  void check_game_over();
 };
 
 #endif /* _GAME_H_ */
