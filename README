@@ -1,0 +1,21 @@
+# tic-tac-ai
+
+command-line tic-tac-toe in c++.
+
+## requirements:
+
+- c++17 compiler
+
+## run:
+
+- ./run.sh
+
+## how to play:
+
+- choose pvp or pvai
+- enter moves like xb2 (x = player, b = column, 2 = row)
+- win by getting three in a row
+
+## notes:
+
+- ai currently random, minimax planned
