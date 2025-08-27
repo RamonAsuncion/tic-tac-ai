@@ -12,22 +12,15 @@ void board::init()
   grid = std::vector<std::vector<char>>(SIZE, std::vector<char>(SIZE, '-'));
 }
 
-bool board::make_move(int col, int row, char symbol)
+bool board::make_move(move move, char symbol)
 {
-  if (is_empty(col, row)) {
-    grid[row][col] = symbol;
+  if (is_empty(move)) {
+    grid[move.row][move.col] = symbol;
     return true;
   }
   return false;
 }
 
-//struct Move {
-//  int row;
-//  int col;
-//  char player;
-//}
-
-// vector that stores possible moves of 1's (legal) and 0's (illegal)
 std::vector<std::pair<int, int>> board::possible_moves()
 {
   std::vector<std::pair<int, int>> moves;
@@ -35,8 +28,6 @@ std::vector<std::pair<int, int>> board::possible_moves()
     for (int col = 0; col < SIZE; ++col) {
       // return cell that is empty e.g. {{0, 1}, {1,0}...}
       if (grid[row][col] == '-') {
-        // move should of been a struct to clean up col and row and
-        // only using it to store data not modifying but oh well
         moves.push_back(std::make_pair(row, col));
       }
     }
@@ -44,9 +35,9 @@ std::vector<std::pair<int, int>> board::possible_moves()
   return moves;
 }
 
-bool board::is_empty(int col, int row)
+bool board::is_empty(move move)
 {
-  return grid[row][col] == '-';
+  return grid[move.row][move.col] == '-';
 }
 
 bool board::is_draw() const

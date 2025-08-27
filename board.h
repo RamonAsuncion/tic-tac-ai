@@ -3,13 +3,17 @@
 
 #include <vector>
 
+struct move {
+  int col, row;
+};
+
 class board
 {
 public:
   board();
   void init();
-  bool make_move(int col, int row, char symbol);
-  bool is_empty(int col, int row);
+  bool make_move(move move, char symbol);
+  bool is_empty(move move);
   bool check_winner(char player);
   bool is_draw() const;
   void display() const;
