@@ -13,6 +13,7 @@ public:
   bool check_winner(char player);
   bool is_draw() const;
   void display() const;
+  std::vector<std::pair<int, int>> possible_moves();
 private:
   static const int SIZE = 3;
   std::vector<std::vector<char>> grid;
