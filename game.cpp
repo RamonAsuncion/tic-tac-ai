@@ -93,10 +93,12 @@ void game::ai_move() {
   std::cout << "Dumb AI:\n";
   bool valid_move = false;
 
+  move m;
   while (!valid_move) {
-    int rand_col = rand() % 3;
-    int rand_row = rand() % 3;
-    valid_move = game_board.make_move(rand_col, rand_row, current_player);
+    m.col = rand() % 3;
+    m.row = rand() % 3;
+
+    valid_move = game_board.make_move(m, current_player);
   }
 
   check_game_over();
@@ -104,23 +106,24 @@ void game::ai_move() {
     switch_player();
 }
 
-bool game::process_move(const std::string& move)
+bool game::process_move(const std::string& player_move)
 {
-  if (move.length() != 3) return false;
+  if (player_move.length() != 3) return false;
 
   // Ob2 Xc2 Ob3 Xa1
-  char player = std::toupper(move[0]);
-  char col = std::tolower(move[1]);
-  char row = move[2];
+  char player = std::toupper(player_move[0]);
+  char col = std::tolower(player_move[1]);
+  char row = player_move[2];
 
   if (player != current_player) return false;
   if (col < 'a' || col > 'c') return false;
   if (row < '1' || row > '3') return false;
 
-  int row_idx = row - '1';
-  int col_idx = col - 'a';
+  move m;
+  m.row = row - '1';
+  m.col = col - 'a';
 
-  return game_board.make_move(col_idx, row_idx, player);
+  return game_board.make_move(m, player);
 }
 
 void game::check_game_over()
