@@ -19,13 +19,13 @@ void game::show_menu()
     std::cout << "1. PvP\n";
     std::cout << "2. PvAI\n";
     std::cout << "3. Quit\n";
-    std::cout << "Choice: ";
+    std::cout << "> ";
     std::cin >> choice;
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (choice == 1) {
-      std::cout << "Start: " << current_player << ", use command \"Xa1\"!\n";
+      std::cout << "Player 1: " << current_player << " use command 'Xa1'!\n";
       mode = game_mode::PvP;
     } else if (choice == 2) {
       mode = game_mode::PvAI;
@@ -33,7 +33,7 @@ void game::show_menu()
       std::cout << "Exiting...\n";
       exit(0);
     } else {
-      std::cout << "Invalid option!\n";
+      std::cout << "Invalid option: " << choice << ", choose a # between 1-3.\n";
     }
   }
 }
@@ -44,6 +44,13 @@ void game::run()
 
   while (!game_over) {
     game_board.display();
+
+    auto possible_moves = game_board.possible_moves();
+    std::cout << "Possible moves: ";
+    for (const auto& pm : possible_moves) {
+      std::cout << "{" << pm.first << ", " << pm.second << "} ";
+    }
+    std::cout << "\n";
 
     if (mode == game_mode::PvP || current_player == 'X') {
       player_move();
@@ -77,7 +84,7 @@ void game::player_move()
         switch_player();
     }
     else {
-      std::cout << "Invalid move!";
+      std::cout << "Invalid move: " << move << "\n";
     }
   }
 }
@@ -120,7 +127,7 @@ void game::check_game_over()
 {
   if (game_board.check_winner(current_player)) {
     game_board.display();
-    std::cout << "Player " << current_player << " wins!\n";
+    std::cout << current_player << " wins!\n";
     game_over = true;
   } else if (game_board.is_draw()) { // last move could be a winner
     std::cout << "It's a draw!\n";
