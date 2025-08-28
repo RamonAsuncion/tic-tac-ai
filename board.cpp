@@ -35,7 +35,7 @@ std::vector<std::pair<int, int>> board::possible_moves()
   return moves;
 }
 
-bool board::is_empty(move move)
+bool board::is_empty(move move) const
 {
   return grid[move.row][move.col] == '-';
 }
@@ -52,7 +52,7 @@ bool board::is_draw() const
   return true; // assumes check_winner is false.
 }
 
-bool board::check_winner(char player)
+bool board::check_winner(char player) const
 {
   // check cols
   for (int row = 0; row < SIZE; ++row) {

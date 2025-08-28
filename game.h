@@ -19,8 +19,7 @@ class game
 public:
   game();
   void run();
-  bool is_draw() const;
-  bool check_winner() const;
+  static bool is_game_over();
 private:
   game_mode mode;
   board game_board;

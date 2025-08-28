@@ -13,9 +13,9 @@ public:
   board();
   void init();
   bool make_move(move move, char symbol);
-  bool is_empty(move move);
-  bool check_winner(char player);
+  bool is_empty(move move) const;
   bool is_draw() const;
+  bool check_winner(char player) const;
   void display() const;
   std::vector<std::pair<int, int>> possible_moves();
 private:
