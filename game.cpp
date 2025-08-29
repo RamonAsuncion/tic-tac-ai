@@ -1,14 +1,15 @@
-#include <string>
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
+#include <string>
 
+#include "constants.h"
 #include "game.h"
 
 game::game()
 {
   srand(time(0)); // random AI start position
   game_over = false;
-  current_player = 'X';
+  current_player = PLAYER_X;
 }
 
 void game::show_menu()
@@ -25,7 +26,7 @@ void game::show_menu()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (choice == 1) {
-      std::cout << "Player 1: " << current_player << " use command 'Xa1'!\n";
+      // std::cout << "Player 1: " << current_player << " use command 'Xa1'!\n";
       mode = game_mode::PvP;
     } else if (choice == 2) {
       mode = game_mode::PvAI;
@@ -52,7 +53,7 @@ void game::run()
     }
     std::cout << "\n";
 
-    if (mode == game_mode::PvP || current_player == 'X') {
+    if (mode == game_mode::PvP || current_player == PLAYER_X) {
       player_move();
     } else {
       ai_move();
@@ -63,7 +64,7 @@ void game::run()
 
 void game::switch_player()
 {
-  current_player = (current_player == 'X') ? 'O' : 'X';
+  current_player = (current_player == PLAYER_X) ? PLAYER_O : PLAYER_X;
 }
 
 void game::player_move()
@@ -72,7 +73,7 @@ void game::player_move()
   bool valid_move = false;
 
   while (!valid_move) {
-    int pvp_player = (current_player == 'X' ? 1 : 2);
+    int pvp_player = (current_player == PLAYER_X ? 1 : 2);
     std::cout << "P" << pvp_player << ": ";
     std::getline(std::cin, move);
 
@@ -115,6 +116,8 @@ bool game::process_move(const std::string& player_move)
   char col = std::tolower(player_move[1]);
   char row = player_move[2];
 
+
+  // fixme size can change (c / 3)
   if (player != current_player) return false;
   if (col < 'a' || col > 'c') return false;
   if (row < '1' || row > '3') return false;
@@ -128,13 +131,14 @@ bool game::process_move(const std::string& player_move)
 
 void game::check_game_over()
 {
-  if (game_board.check_winner(current_player)) {
-    game_board.display();
-    std::cout << current_player << " wins!\n";
+  char winner = game_board.check_winner();
+  game_board.display();
+
+  if (winner != EMPTY_CELL) {
+    std::cout << winner << " wins!\n";
     game_over = true;
-  } else if (game_board.is_draw()) { // last move could be a winner
+  } else if (game_board.is_draw()) {  // last move could be a winner
     std::cout << "It's a draw!\n";
     game_over = true;
   }
 }
-
