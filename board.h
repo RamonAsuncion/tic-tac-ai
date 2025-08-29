@@ -15,11 +15,10 @@ public:
   bool make_move(move move, char symbol);
   bool is_empty(move move) const;
   bool is_draw() const;
-  bool check_winner(char player) const;
+  char check_winner() const;
   void display() const;
   std::vector<std::pair<int, int>> possible_moves();
 private:
-  static const int SIZE = 3;
   std::vector<std::vector<char>> grid;
 };
 
