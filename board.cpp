@@ -14,50 +14,51 @@ void board::init()
   grid = std::vector<std::vector<char>>(SIZE, std::vector<char>(SIZE, EMPTY_CELL));
 }
 
-bool board::make_move(move move, char symbol)
+bool board::make_move(position p, char symbol)
 {
-  if (is_empty(move)) {
-    grid[move.row][move.col] = symbol;
+  if (is_empty(p)) {
+    grid[p.row][p.col] = symbol;
     return true;
   }
   return false;
 }
 
-std::vector<std::pair<int, int>> board::possible_moves()
+std::vector<position> board::possible_moves() const
 {
-  std::vector<std::pair<int, int>> moves;
+  std::vector<position> moves;
   for (int row = 0; row < SIZE; ++row) {
     for (int col = 0; col < SIZE; ++col) {
       // return cell that is empty e.g. {{0, 1}, {1,0}...}
       if (grid[row][col] == EMPTY_CELL) {
-        moves.push_back(std::make_pair(row, col));
+        moves.push_back({ row, col });
       }
     }
   }
   return moves;
 }
 
-bool board::is_empty(move move) const
+bool board::is_empty(position p) const
 {
-  return grid[move.row][move.col] == EMPTY_CELL;
+  return grid[p.row][p.col] == EMPTY_CELL;
 }
 
-bool board::is_draw() const
+bool board::is_tie() const
 {
-  if (check_winner() != EMPTY_CELL) {
-    return false;
-  }
+  return check_winner() == EMPTY_CELL && possible_moves().empty();
+  //if (check_winner() != EMPTY_CELL) { // someone already won
+  //  return false;
+  //}
 
-  // any empty cell remain
-  for (int row = 0; row < SIZE; ++row) {
-    for (int col = 0; col < SIZE; ++col) {
-      if (grid[row][col] == EMPTY_CELL) {
-        return false;
-      }
-    }
-  }
+  //// any empty cell remain
+  //for (int row = 0; row < SIZE; ++row) {
+  //  for (int col = 0; col < SIZE; ++col) {
+  //    if (grid[row][col] == EMPTY_CELL) {
+  //      return false;
+  //    }
+  //  }
+  //}
 
-  return true;
+  //return true; // no winner
 }
 
 char board::check_winner() const
@@ -123,6 +124,7 @@ inline void clear_screen()
   std::cout << "\033[2J\033[1;1H";
 }
 
+// possible do while loop to have first message(???) somewhere????
 void board::display() const
 {
   clear_screen(); // TODO: I need to let user know how to use command.

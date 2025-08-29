@@ -4,9 +4,9 @@
 #include <string>
 #include <limits>
 
+#include "ai.h"
 #include "board.h"
 #include "player.h"
-#include "ai.h"
 
 enum class game_mode
 {
