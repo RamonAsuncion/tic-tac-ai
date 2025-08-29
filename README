@@ -17,7 +17,3 @@ how to play:
 - enter moves like xb2 (x = player, b = column, 2 = row)
 - win by getting three in a row
 
-notes:
-------
-- ai currently random, minimax planned
-
